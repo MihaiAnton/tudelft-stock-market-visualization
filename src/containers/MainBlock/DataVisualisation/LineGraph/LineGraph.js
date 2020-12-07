@@ -6,6 +6,7 @@ import classes from "./LineGraph.module.css";
 import stock_price from "../data/stock_price";
 
 class LineGraph extends Component {
+  
   render() {
     return (
       <div className={classes.LineGraph}>

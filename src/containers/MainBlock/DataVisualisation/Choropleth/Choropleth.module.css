@@ -1,0 +1,33 @@
+.Choropleth {
+  height: 550px;
+  width: 800px;
+}
+
+.ChoroplethCanvas {
+  height: 550px;
+  width: 100%;
+  z-index: 0;
+}
+
+.Cover {
+  border-radius: 8px;
+  height: 550px;
+  width: 800px;
+  background-color: white;
+  opacity: 0.9;
+  z-index: 1000;
+  position: absolute;
+}
+
+.StateCard {
+  position: absolute;
+  z-index: 1100;
+  left: 50px;
+  margin-top: 0px;
+  /* top: 10px; */
+
+  /* left: 50%; */
+  /* top: 50%; */
+  /* margin-left: -100px;
+  margin-top: -75px; */
+}

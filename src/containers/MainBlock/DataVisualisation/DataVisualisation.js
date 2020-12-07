@@ -9,6 +9,7 @@ import snp_companies_info from "./data/snp_companies_info";
 import snp_companies from "./data/snp_companies";
 import snp_by_sector from "./data/snp_by_sector";
 import snp_companies_by_sector from "./data/snp_companies_by_sector";
+import Choropleth from "./Choropleth/Choropleth";
 
 class DataVisualisation extends Component {
   state = {
@@ -98,6 +99,7 @@ class DataVisualisation extends Component {
             onStockClick={(stock) => this.zoomOutSector(stock)}
           />
         )}
+        <Choropleth />
       </div>
     );
   }

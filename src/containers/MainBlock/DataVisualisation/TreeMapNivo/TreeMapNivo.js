@@ -1,6 +1,5 @@
 import React, { Component, rgbToHex } from "react";
 import { ResponsiveTreeMap } from "@nivo/treemap";
-
 import classes from "./TreeMapNivo.module.css";
 
 const colors = { 2017: "red", 2018: "red", 2019: "green" };
@@ -27,7 +26,7 @@ class TreeMapNivo extends Component {
           tile="resquarify"
           leavesOnly={true}
           label="id"
-          orientLabel={false}
+          orientLabel={true}
           margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
           labelSkipSize={40}
           labelTextColor={{ from: "color", modifiers: [["darker", 1.2]] }}

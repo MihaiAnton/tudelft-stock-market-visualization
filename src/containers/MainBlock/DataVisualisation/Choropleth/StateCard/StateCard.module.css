@@ -1,0 +1,11 @@
+.StateCard {
+  width: 700px;
+  height: 460px;
+  z-index: 2000;
+}
+
+.StateCard h4 {
+  color: #2b2c2c;
+  font-size: 32px;
+  margin: 20px;
+}
