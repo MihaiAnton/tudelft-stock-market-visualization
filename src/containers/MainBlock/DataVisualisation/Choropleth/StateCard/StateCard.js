@@ -12,8 +12,6 @@ const StateCard = (props) => {
     _data.push({ id: k, label: k, value: props.data[k] });
   }
 
-  console.log(props);
-
   return (
     <div
       className={classes.StateCard}

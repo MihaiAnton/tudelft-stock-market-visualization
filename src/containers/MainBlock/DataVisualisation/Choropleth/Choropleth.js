@@ -33,7 +33,6 @@ class Choropleth extends Component {
   }
 
   nodeClicked(node) {
-    console.log(node);
     if (node.hasOwnProperty("value")) {
       let data = {};
       if (state_industry_distribution.hasOwnProperty(node.label)) {

@@ -1,13 +1,20 @@
-import React, { Component, /*rgbToHex*/ } from "react";
+import React, { Component /*rgbToHex*/ } from "react";
 import { ResponsiveTreeMap } from "@nivo/treemap";
 import classes from "./TreeMapNivo.module.css";
 //import { max } from "d3";
 
 //const colors = { 2017: "red", 2018: "red", 2019: "green" };
+const castValue = (color) => {
+  color = Math.floor(color);
+  color = Math.min(color, 255);
+  color = Math.max(color, 0);
+  return color;
+};
+
 const getColor = (bar, maxValue) => {
   let ratio = bar.value / maxValue;
-  let red = 10 * (1 - ratio);
-  let blue = 200 * ratio;
+  let red = castValue(40 * (1 - ratio));
+  let blue = castValue(240 * ratio);
   let green = 80;
 
   return "rgb(" + red + ", " + green + ", " + blue + ")";
@@ -34,10 +41,12 @@ class TreeMapNivo extends Component {
           parentLabelPosition="right"
           parentLabelTextColor={{ from: "color", modifiers: [["darker", 2]] }}
           colors={(bar) => getColor(bar, maxValue)}
-          borderColor={{ from: "color", modifiers: [["darker", 0.1]] }}
+          borderWidth={1}
+          borderColor="white"
+          // borderColor={{ from: "color", modifiers: [["darker", 0.1]] }}
           motionConfig={this.props.motion}
           onClick={(node, event) => {
-            this.props.onStockClick(node.id);
+            this.props.onStockClick(node.id, node.color);
           }}
         />
       </div>

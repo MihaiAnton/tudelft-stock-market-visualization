@@ -4,7 +4,7 @@ import classes from "./StockCard.module.css";
 
 const StockCard = (props) => (
   <div className={classes.StockCard}>
-    <h4>{props.stock}</h4>
+    <h4 style={{ color: props.color }}>{props.stock}</h4>
     <p>Name: {props.data.name}</p>
     <p>Sector: {props.data.sector}</p>
     <p>Industry: {props.data.industry}</p>

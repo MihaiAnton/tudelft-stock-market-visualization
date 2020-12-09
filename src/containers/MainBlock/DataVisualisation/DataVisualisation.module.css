@@ -9,3 +9,53 @@
   padding-top: 50px;
   padding-bottom: 50px;
 }
+
+.Select {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 100%;
+}
+.select select {
+  font-family: "Arial";
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 10px 21px;
+  outline: 0;
+  border: 0px solid #000000;
+  border-radius: 13px;
+  background: #dbdbdb;
+  color: #1f2122;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.select select::-ms-expand {
+  display: none;
+}
+.select select:hover,
+.select select:focus {
+  color: #000000;
+  background: #b9b9b9;
+}
+.select select:disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+.Select_arrow {
+  position: absolute;
+  top: 17px;
+  right: 15px;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 8px 5px 0px 5px;
+  border-color: #5c7ee7 transparent transparent transparent;
+}
+.Select select:hover ~ .select_arrow,
+.Select select:focus ~ .select_arrow {
+  border-top-color: #000000;
+}
+.Select select:disabled ~ .select_arrow {
+  border-top-color: #cccccc;
+}

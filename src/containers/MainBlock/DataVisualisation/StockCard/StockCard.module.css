@@ -1,14 +1,20 @@
 .StockCard {
-  background-color: rgba(209, 209, 209, 0.274);
-  justify-content: left;
-  padding: 10px;
-  margin: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.31);
-  border-radius: 18px 11px 0px 11px;
-}
+  padding-left: 20px;
+  padding-right: 20px;
+  width: auto;
+  height: fit-content;
 
-.StockCard h4 {
-  color: rgb(74, 168, 223);
+  overflow: hidden;
+
+  margin: 10px 4px 10px 4px;
+
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+
+  box-shadow: 0px 0px 14px -5px rgba(0, 0, 0, 0.26);
+  -webkit-box-shadow: 0px 0px 14px -5px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 0px 0px 14px -5px rgba(0, 0, 0, 0.26);
 }
 
 .StockCard p {
