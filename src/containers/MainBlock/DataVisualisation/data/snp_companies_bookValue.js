@@ -576,7 +576,7 @@ const snp_companies_bookValue_bySector = {
           }
         ]
       },
-    Finance: {
+    Financials: {
         name: "S&P 500 companies",
         children: [
           {

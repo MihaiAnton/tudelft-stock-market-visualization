@@ -213,7 +213,7 @@ const snp_companies_trailingPE_bySector = {
           }
         ]
       },
-      "Information Technology": {
+    "Information Technology": {
         name: "S&P 500 companies",
         children: [
           {

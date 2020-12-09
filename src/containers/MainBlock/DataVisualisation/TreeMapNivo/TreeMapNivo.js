@@ -1,8 +1,9 @@
-import React, { Component, rgbToHex } from "react";
+import React, { Component, /*rgbToHex*/ } from "react";
 import { ResponsiveTreeMap } from "@nivo/treemap";
 import classes from "./TreeMapNivo.module.css";
+//import { max } from "d3";
 
-const colors = { 2017: "red", 2018: "red", 2019: "green" };
+//const colors = { 2017: "red", 2018: "red", 2019: "green" };
 const getColor = (bar, maxValue) => {
   let ratio = bar.value / maxValue;
   let red = 10 * (1 - ratio);
