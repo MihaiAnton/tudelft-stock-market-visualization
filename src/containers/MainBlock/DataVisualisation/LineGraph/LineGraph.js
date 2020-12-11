@@ -3,8 +3,8 @@ import { ResponsiveLine } from "@nivo/line";
 
 import classes from "./LineGraph.module.css";
 
-import stock_price from "../data/stock_price";
-
+//import stock_price from "../data/stock_price";
+import stock_price from "../data/stock_price.json";
 class LineGraph extends Component {
   
   render() {
@@ -60,8 +60,8 @@ class LineGraph extends Component {
               anchor: "bottom-right",
               direction: "column",
               justify: false,
-              translateX: 100,
-              translateY: 0,
+              translateX: 110,
+              translateY: -10,
               itemsSpacing: 20,
               itemDirection: "left-to-right",
               itemWidth: 80,
