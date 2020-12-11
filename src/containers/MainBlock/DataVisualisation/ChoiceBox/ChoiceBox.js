@@ -7,6 +7,7 @@ const ChoiceBox = (props) => {
     if (props.choices[i].value === props.active) {
       choices.push(
         <p
+          key={props.choices[i].value}
           className={classes.Selected}
           onClick={() => props.onClick(props.choices[i].value)}
         >
@@ -15,7 +16,7 @@ const ChoiceBox = (props) => {
       );
     } else {
       choices.push(
-        <p onClick={() => props.onClick(props.choices[i].value)}>
+        <p key={props.choices[i].value} onClick={() => props.onClick(props.choices[i].value)}>
           {props.choices[i].display}
         </p>
       );

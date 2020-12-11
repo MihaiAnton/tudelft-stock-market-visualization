@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import classes from "./DataVisualisation.module.css";
 import TreeMapNivo from "./TreeMapNivo/TreeMapNivo";
 import LineGraph from "./LineGraph/LineGraph";
-import stock_prices from "./data/stock_price";
+//import stock_prices from "./data/stock_price";
+import stock_prices from './data/stock_price.json';
 import StockCard from "./StockCard/StockCard";
 import snp_companies_info from "./data/snp_companies_info";
 import snp_companies from "./data/snp_companies";
@@ -19,6 +20,7 @@ import iphone_launches from "./data/iphone_launches";
 import apple_launch_descriptions from "./data/apple_launch_descriptions";
 const MAX_COMPANIES_DISPLAYED = 240; // from performance concerns, it should be nice to display less than 500 companies in the treemap
 const EVENT_LINE_GRAPH_HEIGHT = 200;
+
 
 class DataVisualisation extends Component {
   state = {
