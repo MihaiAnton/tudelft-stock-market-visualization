@@ -14,7 +14,11 @@ import snp_companies_trailingPE_bySector from "./data/snp_companies_trailingPE";
 import snp_companies_bookValue_bySector from "./data/snp_companies_bookValue";
 import snp_companies_averageDailyVolume3Month_bySector from "./data/snp_companies_averageDailyVolume3Month";
 import ChoiceBox from "./ChoiceBox/ChoiceBox";
+import CandleStick from "./CandleStick/CandleStick";
+import iphone_launches from "./data/iphone_launches";
+import apple_launch_descriptions from "./data/apple_launch_descriptions";
 const MAX_COMPANIES_DISPLAYED = 240; // from performance concerns, it should be nice to display less than 500 companies in the treemap
+const EVENT_LINE_GRAPH_HEIGHT = 200;
 
 class DataVisualisation extends Component {
   state = {
@@ -22,6 +26,8 @@ class DataVisualisation extends Component {
     zoomInSector: null,
     typeValue: "market_cap",
     selectedStockColor: "black",
+    detailedTicker: "MSFT",
+    appleEvent: "iphone5s",
   };
 
   validStock(stock) {
@@ -112,6 +118,14 @@ class DataVisualisation extends Component {
     return list;
   }
 
+  detailedTickerChange(ticker) {
+    this.setState({ detailedTicker: ticker });
+  }
+
+  changeAppleEvent(event) {
+    this.setState({ appleEvent: event });
+  }
+
   render() {
     return (
       <div className={classes.DataVisualisation}>
@@ -168,7 +182,6 @@ class DataVisualisation extends Component {
             this.changeSelectedStock(stock, color)
           }
         />
-
         <div id="stockCardInfo">
           {this.state.selectedStock !== null ? (
             <StockCard
@@ -182,7 +195,6 @@ class DataVisualisation extends Component {
         {this.validStock(this.state.selectedStock) ? (
           <LineGraph stock={this.state.selectedStock} />
         ) : null}
-
         {this.state.zoomInSector === null ? (
           <TreeMapNivo
             motion="gentle"
@@ -205,8 +217,99 @@ class DataVisualisation extends Component {
             onStockClick={(stock) => this.zoomOutSector(stock)}
           />
         )}
-
         <Choropleth />
+        <div>
+          <ChoiceBox
+            choices={[
+              {
+                value: "MSFT",
+                display: "Microsoft",
+              },
+              {
+                value: "TSLA",
+                display: "Tesla",
+              },
+              {
+                value: "AAPL",
+                display: "Apple",
+              },
+              {
+                value: "FB",
+                display: "Facebook",
+              },
+              {
+                value: "GOOG",
+                display: "Google",
+              },
+            ]}
+            active={this.state.detailedTicker}
+            onClick={(value) => this.detailedTickerChange(value)}
+          />
+        </div>
+        {this.state.detailedTicker === "MSFT" ? (
+          <CandleStick ticker="MSFT" />
+        ) : null}
+        {this.state.detailedTicker === "TSLA" ? (
+          <CandleStick ticker="TSLA" />
+        ) : null}
+        {this.state.detailedTicker === "AAPL" ? (
+          <CandleStick ticker="AAPL" />
+        ) : null}
+        {this.state.detailedTicker === "FB" ? (
+          <CandleStick ticker="FB" />
+        ) : null}
+        {this.state.detailedTicker === "GOOG" ? (
+          <CandleStick ticker="GOOG" />
+        ) : null}
+
+        <div>
+          <ChoiceBox
+            choices={[
+              {
+                value: "iphone5s",
+                display: "iPhone 5s",
+              },
+              {
+                value: "iphone6s",
+                display: "iPhone 6s",
+              },
+              {
+                value: "iphone7",
+                display: "iPhone 7",
+              },
+              {
+                value: "iphonex",
+                display: "iPhone X",
+              },
+              {
+                value: "iphonexr",
+                display: "iPhone XR",
+              },
+              {
+                value: "iphone11",
+                display: "iPhone 11",
+              },
+              {
+                value: "iphone12",
+                display: "iPhone 12",
+              },
+            ]}
+            active={this.state.appleEvent}
+            onClick={(value) => this.changeAppleEvent(value)}
+          />
+        </div>
+
+        <div className={classes.GraphDescription}>
+          <p>{apple_launch_descriptions[this.state.appleEvent]}</p>
+        </div>
+
+        <LineGraph
+          enableArea
+          removeGridY={true}
+          height={EVENT_LINE_GRAPH_HEIGHT}
+          data={iphone_launches[this.state.appleEvent]}
+          stock={"AAPL"}
+        />
       </div>
     );
   }

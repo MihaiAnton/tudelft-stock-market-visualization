@@ -6,13 +6,15 @@ import classes from "./LineGraph.module.css";
 import stock_price from "../data/stock_price";
 
 class LineGraph extends Component {
-  
   render() {
     return (
-      <div className={classes.LineGraph}>
+      <div
+        style={{ height: this.props.height || 600 }}
+        className={classes.LineGraph}
+      >
         <ResponsiveLine
-          data={stock_price[this.props.stock]}
-          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          data={this.props.data || stock_price[this.props.stock]}
+          margin={{ top: 50, right: 60, bottom: 20, left: 60 }}
           xScale={{ type: "point" }}
           yScale={{
             type: "linear",
@@ -42,6 +44,7 @@ class LineGraph extends Component {
             legendPosition: "middle",
           }}
           enableGridX={false}
+          enableGridY={!this.props.hasOwnProperty("removeGridY")}
           colors={["black", "red", "green"]}
           lineWidth={2}
           enablePoints={false}
@@ -51,17 +54,18 @@ class LineGraph extends Component {
           pointBorderColor={{ from: "serieColor" }}
           pointLabel="y"
           pointLabelYOffset={-12}
-          areaBlendMode="exclusion"
-          areaBaselineValue={30}
-          areaOpacity={0.25}
+          // areaBlendMode="exclusion"
+          // areaBaselineValue={30}
+          // areaOpacity={0.25}
+          enableArea={this.props.enableArea}
           useMesh={true}
           legends={[
             {
-              anchor: "bottom-right",
-              direction: "column",
+              anchor: "bottom",
+              direction: "row",
               justify: false,
-              translateX: 100,
-              translateY: 0,
+              translateX: 150,
+              translateY: 16,
               itemsSpacing: 20,
               itemDirection: "left-to-right",
               itemWidth: 80,

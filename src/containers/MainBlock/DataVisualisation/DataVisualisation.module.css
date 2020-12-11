@@ -59,3 +59,10 @@
 .Select select:disabled ~ .select_arrow {
   border-top-color: #cccccc;
 }
+
+.GraphDescription {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  
+}

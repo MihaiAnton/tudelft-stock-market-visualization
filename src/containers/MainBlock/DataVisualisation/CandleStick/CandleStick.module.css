@@ -1,0 +1,10 @@
+.CandleStick {
+  position: relative;
+  left: -400px;
+  width: 800px;
+}
+
+.Loading {
+  height: 350px;
+  width: 800px;
+}
