@@ -4,7 +4,7 @@ import classes from "./DataVisualisation.module.css";
 import TreeMapNivo from "./TreeMapNivo/TreeMapNivo";
 import LineGraph from "./LineGraph/LineGraph";
 //import stock_prices from "./data/stock_price";
-import stock_prices from './data/stock_price.json';
+import stock_prices from "./data/stock_price.json";
 import StockCard from "./StockCard/StockCard";
 import snp_companies_info from "./data/snp_companies_info";
 import snp_companies from "./data/snp_companies";
@@ -18,9 +18,12 @@ import ChoiceBox from "./ChoiceBox/ChoiceBox";
 import CandleStick from "./CandleStick/CandleStick";
 import iphone_launches from "./data/iphone_launches";
 import apple_launch_descriptions from "./data/apple_launch_descriptions";
+import tesla_tweet from "./data/tsla_tweet";
+import covid_stock_changes from "./data/covid_stock_changes";
+import stock_metric_description from "./data/stock_metric_description";
+
 const MAX_COMPANIES_DISPLAYED = 240; // from performance concerns, it should be nice to display less than 500 companies in the treemap
 const EVENT_LINE_GRAPH_HEIGHT = 200;
-
 
 class DataVisualisation extends Component {
   state = {
@@ -129,6 +132,24 @@ class DataVisualisation extends Component {
   }
 
   render() {
+    let covid_stock_lines = [];
+    for (let key in covid_stock_changes) {
+      covid_stock_lines.push(
+        <div style={{ width: 260 }}>
+          <LineGraph
+            monthly
+            noLabel
+            enableArea
+            removeGridY={true}
+            height={160}
+            color={"#c8454d"}
+            data={covid_stock_changes[key]}
+            stock={key}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className={classes.DataVisualisation}>
         {/* <div className={classes.Select}>
@@ -164,6 +185,9 @@ class DataVisualisation extends Component {
             active={this.state.typeValue}
             onClick={(value) => this.onTypeChange(value)}
           />
+        </div>
+        <div className={classes.GraphDescription}>
+          <p>{stock_metric_description[this.state.typeValue]}</p>
         </div>
         {/* <div className="goback">
           <button
@@ -263,7 +287,6 @@ class DataVisualisation extends Component {
         {this.state.detailedTicker === "GOOG" ? (
           <CandleStick ticker="GOOG" />
         ) : null}
-
         <div>
           <ChoiceBox
             choices={[
@@ -300,18 +323,30 @@ class DataVisualisation extends Component {
             onClick={(value) => this.changeAppleEvent(value)}
           />
         </div>
-
         <div className={classes.GraphDescription}>
           <p>{apple_launch_descriptions[this.state.appleEvent]}</p>
         </div>
-
         <LineGraph
+          monthly
           enableArea
+          color={"#484848"}
           removeGridY={true}
           height={EVENT_LINE_GRAPH_HEIGHT}
           data={iphone_launches[this.state.appleEvent]}
           stock={"AAPL"}
         />
+
+        <LineGraph
+          weekly
+          enableArea
+          color={"#484848"}
+          removeGridY={true}
+          height={EVENT_LINE_GRAPH_HEIGHT}
+          data={tesla_tweet}
+          stock={"TSLA"}
+        />
+
+        <div className={classes.MultipleLineBox}>{covid_stock_lines}</div>
       </div>
     );
   }

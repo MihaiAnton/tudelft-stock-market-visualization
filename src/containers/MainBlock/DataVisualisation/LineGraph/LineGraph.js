@@ -3,26 +3,22 @@ import { ResponsiveLine } from "@nivo/line";
 
 import classes from "./LineGraph.module.css";
 
-//import stock_price from "../data/stock_price";
-import stock_price from "../data/stock_price.json";
+import stock_price from "../data/stock_price";
+
 class LineGraph extends Component {
-  state={
-    data:stock_price,
-    selectedLegend:[]
-  }
-  
   render() {
+    let marginRight = 40;
+    if (this.props.noLabel) {
+      marginRight = 10;
+    }
     return (
       <div
         style={{ height: this.props.height || 600 }}
         className={classes.LineGraph}
       >
         <ResponsiveLine
-          data={this.state.data[this.props.stock]}
-          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-          //xScale={{ type: "point" }}
-          xScale={{ format: "%Y-%m-%d", type: "time" }}
-          xFormat="time:%Y-%m-%d"
+          data={this.props.data || stock_price[this.props.stock]}
+          margin={{ top: 50, right: marginRight, bottom: 40, left: 0 }}
           yScale={{
             type: "linear",
             min: "auto",
@@ -33,35 +29,66 @@ class LineGraph extends Component {
           yFormat=" >-.2f"
           curve="monotoneX"
           axisTop={null}
-          axisRight={{
-            orient: "right",
-            tickSize: 10,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: "",
-            legendOffset: 0,
-          }}
-          axisBottom={{
-            tickValues: "every 1 year",
-            tickSize: 10,
-            tickPadding: 5,
-            tickRotation: 0,
-            format: "%Y",
-            legend: "",
-            legendOffset: 36,
-            legendPosition: "middle"
-          }}
-          axisLeft={{
-            orient: "left",
-            tickSize: 10,
-            tickPadding: 5,
-            tickRotation: 0,
-            legendOffset: -40,
-            legendPosition: "middle",
-          }}
+          axisRight={
+            this.props.noLabel
+              ? null
+              : {
+                  orient: "right",
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 0,
+                  legend: "",
+                  legendOffset: 0,
+                }
+          }
+          axisLeft={null}
+          axisBottom={
+            this.props.monthly
+              ? {
+                  tickValues: "every 1 month",
+                  tickSize: 0,
+                  tickPadding: 20,
+                  tickRotation: 0,
+                  format: "%m/%Y",
+                  legend: "",
+                  legendOffset: 50,
+                  legendPosition: "middle",
+                }
+              : this.props.weekly
+              ? {
+                  tickValues: "every 1 week",
+                  tickSize: 0,
+                  tickPadding: 20,
+                  tickRotation: 0,
+                  format: "%d/%m/%Y",
+                  legend: "",
+                  legendOffset: 50,
+                  legendPosition: "middle",
+                }
+              : {
+                  tickValues: "every 1 year",
+                  tickSize: 0,
+                  tickPadding: 20,
+                  tickRotation: 0,
+                  format: "%Y",
+                  legend: "",
+                  legendOffset: 50,
+                  legendPosition: "middle",
+                }
+          }
+          // axisLeft={{
+          //   orient: "left",
+          //   tickSize: 10,
+          //   tickPadding: 5,
+          //   tickRotation: 0,
+          //   legendOffset: -40,
+          //   legendPosition: "middle",
+          // }}
+          xScale={{ format: "%Y-%m-%d", type: "time" }}
+          xFormat="time:%Y-%m-%d"
           enableGridX={false}
           enableGridY={!this.props.hasOwnProperty("removeGridY")}
-          colors={["black", "red", "green"]}
+          colors={this.props.color || ["black", "red", "green"]}
           lineWidth={2}
           enablePoints={false}
           pointSize={10}
@@ -80,8 +107,8 @@ class LineGraph extends Component {
               anchor: "bottom",
               direction: "row",
               justify: false,
-              translateX: 110,
-              translateY: -10,
+              translateX: 80,
+              translateY: 16,
               itemsSpacing: 20,
               itemDirection: "left-to-right",
               itemWidth: 80,
@@ -99,20 +126,6 @@ class LineGraph extends Component {
                   },
                 },
               ],
-              onClick: (node, event) => {
-                let temp_stockData = JSON.parse(JSON.stringify(stock_price));
-                if(this.state.selectedLegend.findIndex(item => item === node.id) === -1){
-                  this.state.selectedLegend.push(node.id)
-                }
-                else{
-                  this.state.selectedLegend.splice(this.state.selectedLegend.findIndex(item => item === node.id),1);
-                }
-                if(this.state.selectedLegend.length !== 0){
-                  temp_stockData[this.props.stock].filter(data=>this.state.selectedLegend.findIndex(item => item === data.id) ===-1)
-                                .forEach(price=>{price.data.splice(0,price.data.length-1);})
-                }
-                this.setState({data:temp_stockData});
-              }
             },
           ]}
         />
