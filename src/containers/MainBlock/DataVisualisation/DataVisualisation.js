@@ -21,6 +21,7 @@ import apple_launch_descriptions from "./data/apple_launch_descriptions";
 import tesla_tweet from "./data/tsla_tweet";
 import covid_stock_changes from "./data/covid_stock_changes";
 import stock_metric_description from "./data/stock_metric_description";
+import facebook_events from "./data/facebook_events";
 
 const MAX_COMPANIES_DISPLAYED = 240; // from performance concerns, it should be nice to display less than 500 companies in the treemap
 const EVENT_LINE_GRAPH_HEIGHT = 200;
@@ -33,6 +34,7 @@ class DataVisualisation extends Component {
     selectedStockColor: "black",
     detailedTicker: "MSFT",
     appleEvent: "iphone5s",
+    facebookEvent: "cambridgeAnalytica",
   };
 
   validStock(stock) {
@@ -129,6 +131,10 @@ class DataVisualisation extends Component {
 
   changeAppleEvent(event) {
     this.setState({ appleEvent: event });
+  }
+
+  changeFacebookEvent(event) {
+    this.setState({ facebookEvent: event });
   }
 
   render() {
@@ -344,6 +350,37 @@ class DataVisualisation extends Component {
           height={EVENT_LINE_GRAPH_HEIGHT}
           data={tesla_tweet}
           stock={"TSLA"}
+        />
+
+        <div>
+          <ChoiceBox
+            choices={[
+              {
+                value: "cambridgeAnalytica",
+                display: "Cambridge Analytica",
+              },
+              {
+                value: "buyWhapp",
+                display: "FB buys WhatsApp",
+              },
+              {
+                value: "mobileVersion",
+                display: "FB available on phones",
+              },
+            ]}
+            active={this.state.facebookEvent}
+            onClick={(value) => this.changeFacebookEvent(value)}
+          />
+        </div>
+
+        <LineGraph
+          monthly
+          enableArea
+          color={"#484848"}
+          removeGridY={true}
+          height={EVENT_LINE_GRAPH_HEIGHT}
+          data={facebook_events[this.state.facebookEvent]}
+          stock={"FB"}
         />
 
         <div className={classes.MultipleLineBox}>{covid_stock_lines}</div>
